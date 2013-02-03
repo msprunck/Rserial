@@ -1,0 +1,38 @@
+script(type="text/template", name="success")
+	.alert.alert-success.fade.in
+			button.close(type="button", data-dismiss="alert") &times;
+			<%= message %>
+
+script(type="text/template", name="error")
+	.alert.alert-error.fade.in
+			button.close(type="button", data-dismiss="alert") &times;
+			<%= message %>
+
+header.header
+	.container-fluid
+		.span1 
+			img(src="/images/serial.png")
+		h1.title.span5 Remote serial port access
+		.message.span5
+.container
+	form.form-inline
+		select#ports.span4
+			for port in ports
+				option(value="#{port}") #{port}
+		select#baudrate.span2
+			baudrates = [115200, 57600, 38400, 19200, 9600]
+			each baudrate, i in baudrates
+				option(value="#{baudrate}") #{baudrate}
+		button.btn.btn-primary(type="button", data-connecting-text="Connecting...", data-disconnecting-text="Disconnecting...", data-disconnect-text="Disconnect",  id="connect") Connect
+	form
+		.input-append
+			input.span6(type="text", placeholder="Command to send", id="command")
+			button.btn(type="button", id="send") Send
+			button.btn(type="button", id="clear") Clear
+	form
+		textarea.span7(rows="40", id="log")
+script(src="/javascripts/jquery-1.9.0.min.js", type="text/javascript") 
+script(src="/javascripts/bootstrap.min.js", type="text/javascript")
+script(src="/javascripts/underscore-min.js", type="text/javascript")
+script(src="/socket.io/socket.io.js", type="text/javascript")
+script(src="/javascripts/rserial.js", type="text/javascript")	
